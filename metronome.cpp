@@ -1,5 +1,6 @@
 #include "metronome.h"
 #include <iostream>
+#include <vector>
 #include <portaudio.h>
 #include <math.h>
 
@@ -9,6 +10,12 @@ Metronome::Metronome()
 {
     pa_init();
     open(Pa_GetDefaultOutputDevice());
+}
+
+void Metronome::setBar(std::vector<Beat> bar)
+{
+    this->bar = bar;
+
 }
 
 void Metronome::setFreq(int f)
@@ -125,9 +132,9 @@ int Metronome::paCallback	(const		void*						inputBuffer,
         const float pi = 3.14159265358;
         float *out = (float*)outputBuffer;
         float framesInMs = SAMPLE_RATE / 1000.0;			//количество кадров в одной мс. = 44.1
-        double tick = framesInMs * 100;				//длительность одного тика в кадрах
-        double delayMs = (1000 * 60) / metronome->bpm;	//интервал в мс
-        double interval = (framesInMs * delayMs);   //интервал между тиками в кадрах. =
+        double tick = framesInMs * 100;                     //длительность одного тика в кадрах
+        double delayMs = (1000 * 60) / metronome->bpm;      //интервал в мс
+        double interval = (framesInMs * delayMs);           //интервал между тиками в кадрах. =
 
         for (unsigned int i = 0; i < framesPerBuffer; i++)
         {

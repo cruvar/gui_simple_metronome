@@ -1,4 +1,5 @@
 #include <portaudio.h>
+#include <vector>
 
 #ifndef _METRONOME_H_
 #define _METRONOME_H_
@@ -7,6 +8,14 @@ class Metronome
 {
 public:
     Metronome();
+
+    struct Beat
+    {
+        int frequencyTick;
+    };
+    std::vector<Beat> bar;
+
+    void setBar(std::vector<Beat> bar);
     void setFreq(int);
     void setBpm(int);
     int getFreq();
